@@ -1,0 +1,15 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+data/
+logs/
+artifacts/
+reports/*/*.parquet
+reports/*/audit.sqlite
+reports/debug/
+reports/fast/
+ui/node_modules/
+ui/dist/
+.DS_Store

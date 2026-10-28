@@ -1,0 +1,37 @@
+# Profile for IBM AMLSim output (Kaggle: anshankul/ibm-amlsim-example-dataset; 10k accounts, 200 days, 1.32M transfers).
+# Get the data:  python scripts/get_amlsim.py      Run:  make run-amlsim
+#
+# Rule thresholds were calibrated on the full dataset (2026-10-25) so the rule engine behaves like a real one:
+# noisy (~99% false alerts) but covering nearly all laundering. In this simulator every laundering transfer is under
+# $25 while legitimate transfers have a median around $160-550, so a low-value ("micro-transfer") rule does the
+# heavy lifting: alone it fires ~1,590 times a day at 1.05% precision and covers 100% of laundering account-days.
+# Measured on the full data (alerts/day, precision, share of laundering account-days covered):
+#   low_value <$25        1,589/day  1.05%  100%
+#   fan_in >= 4             239/day  0.87%   12%
+#   fan_out >= 10           173/day  0.25%    3%
+#   large >= $1M            156/day  0.28%    3%
+#   pass-through (off)      863/day  0.30%   16%   too noisy for the extra coverage it adds
+
+run_name: amlsim
+data:
+  source: amlsim
+  amlsim_dir: data/raw/amlsim
+
+rules:
+  large_txn_usd: 1000000
+  fan_out_min_counterparties: 10
+  fan_in_min_counterparties: 4
+  pass_through_min_in_usd: 1.0e12   # off
+  low_value_usd: 25
+  low_value_min_count: 1
+
+split:
+  warmup_days: 30
+  val_start_day: 140
+  test_start_day: 160
+
+evaluation:
+  backtest:
+    cuts: [100, 120, 140, 160, 180]   # 100-140 end before the test period and are also used for model selection
+    val_days: 20
+    test_days: 20

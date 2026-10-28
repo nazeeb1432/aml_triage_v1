@@ -1,0 +1,26 @@
+Metadata-Version: 2.4
+Name: aml-triage
+Version: 0.1.0
+Summary: Alert triage model that suppresses / prioritises AML rule-engine alerts (Eddin et al. 2022 + Bakry et al. 2023), with leakage-safe graph features, GAN augmentation experiments, an API and an analyst UI.
+Requires-Python: >=3.11
+Requires-Dist: numpy>=1.26
+Requires-Dist: pandas>=2.2
+Requires-Dist: polars>=1.0
+Requires-Dist: pyarrow>=15
+Requires-Dist: lightgbm>=4.3
+Requires-Dist: scikit-learn>=1.4
+Requires-Dist: optuna>=3.6
+Requires-Dist: numba>=0.59
+Requires-Dist: pydantic>=2.6
+Requires-Dist: pyyaml>=6
+Requires-Dist: fastapi>=0.110
+Requires-Dist: uvicorn[standard]>=0.29
+Requires-Dist: matplotlib>=3.8
+Requires-Dist: imbalanced-learn>=0.12
+Provides-Extra: gan
+Requires-Dist: ctgan>=0.10; extra == "gan"
+Requires-Dist: torch>=2.2; extra == "gan"
+Provides-Extra: dev
+Requires-Dist: pytest>=8; extra == "dev"
+Requires-Dist: httpx>=0.27; extra == "dev"
+Requires-Dist: ruff>=0.4; extra == "dev"

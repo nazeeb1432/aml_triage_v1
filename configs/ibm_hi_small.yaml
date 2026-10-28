@@ -1,0 +1,36 @@
+# Profile for the real IBM AMLworld HI-Small file (Kaggle: ealtman2019/ibm-transactions-for-anti-money-laundering-aml).
+# HI-Small spans only ~18 days (most activity in the first 10), so every window is shorter than the paper's.
+# Usage: aml-triage run --config configs/default.yaml --profile configs/ibm_hi_small.yaml
+
+run_name: ibm-hi-small
+data:
+  source: ibm
+  ibm_trans_file: HI-Small_Trans.csv
+  ibm_patterns_file: HI-Small_Patterns.txt
+
+labels:
+  delay_median_days_pos: 3
+  delay_median_days_neg: 1
+
+features:
+  profile_windows_days: [1, 2, 4, 7]
+  graph:
+    twl_days: 1
+    tws_days: 7
+  gwd:
+    pseudo_label_window_days: 3
+
+split:
+  warmup_days: 3
+  val_start_day: 8
+  test_start_day: 10
+
+evaluation:
+  backtest:
+    cuts: [8, 10, 12]
+    val_days: 2
+    test_days: 2
+
+augmentation:
+  ctgan:
+    negatives_sample: 10000

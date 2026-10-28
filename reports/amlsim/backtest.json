@@ -1,0 +1,174 @@
+{
+  "run_id": "amlsim-20261026T121506Z",
+  "params_note": "champion hyperparameters reused in every fold (not re-tuned)",
+  "folds": [
+    {
+      "cut_day": 100,
+      "test_days": [
+        100,
+        119
+      ],
+      "train_positives": 653,
+      "recall": 0.9669421487603306,
+      "recall_ci": [
+        0.9466873885025667,
+        0.9870995995995996
+      ],
+      "fp_reduction": 0.8157381194513922,
+      "n_positives": 242,
+      "n_alerts": 36625
+    },
+    {
+      "cut_day": 120,
+      "test_days": [
+        120,
+        139
+      ],
+      "train_positives": 995,
+      "recall": 0.9709677419354839,
+      "recall_ci": [
+        0.9551374455246396,
+        0.986469739313694
+      ],
+      "fp_reduction": 0.8258641149291792,
+      "n_positives": 310,
+      "n_alerts": 39917
+    },
+    {
+      "cut_day": 140,
+      "test_days": [
+        140,
+        159
+      ],
+      "train_positives": 1303,
+      "recall": 0.9851632047477745,
+      "recall_ci": [
+        0.9702126887340302,
+        0.9969472001044251
+      ],
+      "fp_reduction": 0.8064516129032258,
+      "n_positives": 337,
+      "n_alerts": 41319
+    },
+    {
+      "cut_day": 160,
+      "test_days": [
+        160,
+        179
+      ],
+      "train_positives": 1567,
+      "recall": 0.9847715736040609,
+      "recall_ci": [
+        0.9765586289800949,
+        0.9945155826558265
+      ],
+      "fp_reduction": 0.8022495037859296,
+      "n_positives": 394,
+      "n_alerts": 41203
+    },
+    {
+      "cut_day": 180,
+      "test_days": [
+        180,
+        199
+      ],
+      "train_positives": 1863,
+      "recall": 0.9941176470588236,
+      "recall_ci": [
+        0.984317261577168,
+        1.0
+      ],
+      "fp_reduction": 0.7838703416149069,
+      "n_positives": 340,
+      "n_alerts": 41556
+    }
+  ],
+  "families": [
+    {
+      "feature_set": "alert",
+      "mean_recall": 0.8253585076097597,
+      "sd_recall": 0.0348518095949988,
+      "mean_fp_reduction": 0.8090941455640832
+    },
+    {
+      "feature_set": "alert+profiles",
+      "mean_recall": 0.9271998118466358,
+      "sd_recall": 0.023120230147430608,
+      "mean_fp_reduction": 0.8197634833428025,
+      "folds_better_than_previous": "5/5",
+      "mean_gain_vs_previous": 0.10184130423687632
+    },
+    {
+      "feature_set": "alert+profiles+degree",
+      "mean_recall": 0.9679370753998692,
+      "sd_recall": 0.0177984227529837,
+      "mean_fp_reduction": 0.809148544561789,
+      "folds_better_than_previous": "5/5",
+      "mean_gain_vs_previous": 0.04073726355323317
+    },
+    {
+      "feature_set": "alert+profiles+degree+gw",
+      "mean_recall": 0.969030664268421,
+      "sd_recall": 0.01613704349024784,
+      "mean_fp_reduction": 0.8086097505588261,
+      "folds_better_than_previous": "2/5",
+      "mean_gain_vs_previous": 0.0010935888685519313
+    },
+    {
+      "feature_set": "alert+profiles+degree+gwd",
+      "mean_recall": 0.9792966137139789,
+      "sd_recall": 0.009013058471675885,
+      "mean_fp_reduction": 0.8067311535467994,
+      "folds_better_than_previous": "4/5",
+      "mean_gain_vs_previous": 0.010265949445558054
+    }
+  ],
+  "held_out_typology": [
+    {
+      "typology": "CYCLE",
+      "test_positives": 369,
+      "train_positives_removed": 868,
+      "recall_when_seen": 0.9728997289972899,
+      "recall_when_unseen": 0.7181571815718157
+    },
+    {
+      "typology": "FAN-IN",
+      "test_positives": 365,
+      "train_positives_removed": 699,
+      "recall_when_seen": 1.0,
+      "recall_when_unseen": 0.8082191780821918
+    }
+  ],
+  "seeds": [
+    {
+      "seed": 1,
+      "recall": 0.9863760217983651,
+      "fp_reduction": 0.7915147820786346
+    },
+    {
+      "seed": 2,
+      "recall": 0.9850136239782016,
+      "fp_reduction": 0.7919170984455959
+    },
+    {
+      "seed": 3,
+      "recall": 0.9863760217983651,
+      "fp_reduction": 0.789978665041146
+    },
+    {
+      "seed": 4,
+      "recall": 0.9850136239782016,
+      "fp_reduction": 0.78989332520573
+    },
+    {
+      "seed": 5,
+      "recall": 0.9863760217983651,
+      "fp_reduction": 0.788515696434014
+    }
+  ],
+  "seed_spread": {
+    "min": 0.9850136239782016,
+    "max": 0.9863760217983651,
+    "sd": 0.0006674358972161619
+  }
+}

@@ -1,0 +1,112 @@
+# Default run: synthetic data written in the IBM AMLworld file format.
+# Every number the pipeline uses lives here (or in a profile that overrides it).
+# The resolved config is saved next to every trained model.
+
+run_name: synthetic-default
+seed: 42
+
+data:
+  source: synthetic            # synthetic | ibm
+  raw_dir: data/raw
+  # IBM file names (download from Kaggle, see docs/DATA.md)
+  ibm_trans_file: HI-Small_Trans.csv
+  ibm_patterns_file: HI-Small_Patterns.txt
+  synthetic:
+    n_accounts: 12000
+    n_banks: 25
+    n_days: 150
+    start_date: "2024-01-01"
+    laundering_patterns: 260   # number of laundering attempts injected
+    out_trans_file: SYNTH_Trans.csv
+    out_patterns_file: SYNTH_Patterns.txt
+
+rules:                          # deliberately noisy, like a real rule engine
+  large_txn_usd: 10000
+  structuring_low_usd: 8000
+  structuring_high_usd: 10000
+  structuring_min_count: 2
+  fan_out_min_counterparties: 6
+  fan_in_min_counterparties: 6
+  spike_multiplier: 5.0
+  spike_window_days: 14
+  spike_min_usd: 2000
+  high_risk_channel_min_usd: 3000
+  high_risk_formats: [Cash, Bitcoin]
+  pass_through_min_in_usd: 3000
+  pass_through_ratio: 0.8
+  low_value_usd: 0              # micro-transfer rule; 0 = off (on in configs/amlsim.yaml)
+  low_value_min_count: 1
+
+labels:
+  # positive = alerted account touched a laundering transaction that day
+  lookback_days: 0
+  # bitemporal simulation: when would an analyst decision be recorded?
+  delay_median_days_pos: 14     # escalation -> L2 -> SAR takes weeks
+  delay_median_days_neg: 3      # L1 closures are quick
+  delay_sigma: 0.6
+
+features:
+  profile_windows_days: [1, 3, 7, 14, 30]
+  graph:
+    twl_days: 3                 # window for edges that touch no known-suspicious account
+    tws_days: 30                # window for edges touching a known-suspicious account (as of the day)
+    hub_degree_quantile: 0.99   # walks do not pass through the top 1% highest-degree accounts (merchants, payroll)
+  guilty_walker:
+    n_walks: 50
+    max_steps: 8
+    illicit_memory_days: 21     # walk targets = confirmed in the last 21 days (longer memories drift; see DECISIONS D11)
+  gwd:
+    enabled: true
+    pseudo_label_window_days: 14
+    pseudo_label_threshold: 0.5   # on the calibrated stage-1 probability
+
+split:                          # by day index, never shuffled
+  warmup_days: 30               # stage-1 (GWd) model is trained here only; excluded from everything else
+  val_start_day: 95
+  test_start_day: 115
+  respect_label_delay: true     # train/val only see labels decided before the next split starts
+
+training:
+  n_trials: 20
+  timeout_seconds: 240
+  feature_selection_importance_share: 0.95
+  target_fpr: 0.20
+  selection_min_gain: 0.01      # a richer model or augmentation must beat the simpler one by this much on pre-test folds
+  calibration: auto             # auto = isotonic if validation has >= isotonic_min_positives positives, else sigmoid (Platt)
+  isotonic_min_positives: 200
+
+augmentation:
+  methods: [none, class_weight, smote, ctgan]  # ablation arms on the training set only
+  target_positive_share: 0.15    # after augmentation, in the training set only
+  select_ctgan_in_folds: false   # true = refit CTGAN in every selection fold (~10 min each) so it can become champion
+  ctgan:
+    epochs: 150
+    batch_size: 500
+    negatives_sample: 6000       # CTGAN is fit on all positives + this many negatives
+
+evaluation:
+  backtest:                      # robustness checks (stage `backtest`, docs/EVALUATION.md)
+    cuts: [75, 95, 115, 130]     # first test day of each rolling-origin fold
+    val_days: 20
+    test_days: 20
+    bootstrap_reps: 300
+    seeds: [1, 2, 3, 4, 5]
+    min_typology_positives: 15   # held-out-pattern test only for patterns with at least this many test positives
+  bootstrap_reps: 1000
+  capacity_alerts_per_day: null  # null -> derived from target_fpr on validation
+  feature_sets: [alert, alert+profiles, alert+profiles+degree, alert+profiles+degree+gw, alert+profiles+degree+gwd]
+
+policy:
+  mode: suppress                # prioritise | suppress
+  never_suppress_rules: [structuring]   # rare, regulator-sensitive rule families that are always reviewed
+  override_prior_positive: true
+  btl:
+    # below-the-line sample of suppressed alerts sent to analysts blind
+    strata:
+      - {lo_frac_of_tau: 0.5, hi_frac_of_tau: 1.0, rate: 0.10}
+      - {lo_frac_of_tau: 0.0, hi_frac_of_tau: 0.5, rate: 0.02}
+
+paths:
+  work_dir: data/work
+  artifacts_dir: artifacts
+  reports_dir: reports

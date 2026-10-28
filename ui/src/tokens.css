@@ -1,0 +1,60 @@
+/* Design tokens. Source of truth: docs/UI_TOKENS.md. Components use these variables only — no raw hex in components. */
+:root {
+  /* paper and ink: cool security-paper ground, green-black ink */
+  --paper: #f2f5f3;
+  --paper-raised: #fbfcfb;
+  --paper-sunk: #e6ece9;
+  --ink: #17302e;
+  --ink-soft: #5b6b68;
+  --rule: #c9d3cf;
+  --rule-strong: #9fb0ab;
+
+  /* meaning */
+  --line: #c2362b;          /* the threshold line; high-risk */
+  --line-soft: #f6dcd8;
+  --review: #2f6f5e;        /* action / reviewed */
+  --review-soft: #d8ebe4;
+  --caution: #a8701a;       /* medium band, warnings */
+  --caution-soft: #f5e7cc;
+  --quiet: #8b9a96;         /* suppressed, low band */
+  --quiet-soft: #e3e8e6;
+
+  /* type */
+  --font: "Schibsted Grotesk", "Segoe UI", system-ui, sans-serif;
+  --fs-xs: 12px;
+  --fs-sm: 13px;
+  --fs-md: 15px;
+  --fs-lg: 18px;
+  --fs-xl: 24px;
+  --fs-xxl: 34px;
+  --lh: 1.45;
+
+  /* space: 4px base */
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px;
+
+  /* shape */
+  --radius-sm: 3px;
+  --radius-md: 6px;
+  --rail-w: 208px;
+  --list-w: 440px;
+
+  --focus: 2px solid var(--review);
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0f1c1b; --paper-raised: #152624; --paper-sunk: #0b1514;
+    --ink: #e3ebe8; --ink-soft: #9db0ab; --rule: #2a3d3a; --rule-strong: #3f5551;
+    --line: #ef6a5c; --line-soft: #3d1f1b; --review: #5fbf9f; --review-soft: #183a31;
+    --caution: #e0a948; --caution-soft: #3a2d14; --quiet: #6f8480; --quiet-soft: #1d2b29;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0f1c1b; --paper-raised: #152624; --paper-sunk: #0b1514;
+  --ink: #e3ebe8; --ink-soft: #9db0ab; --rule: #2a3d3a; --rule-strong: #3f5551;
+  --line: #ef6a5c; --line-soft: #3d1f1b; --review: #5fbf9f; --review-soft: #183a31;
+  --caution: #e0a948; --caution-soft: #3a2d14; --quiet: #6f8480; --quiet-soft: #1d2b29;
+  color-scheme: dark;
+}

@@ -1,0 +1,8 @@
+# Runs the API + built UI against the reports/ and artifacts/ produced by `make run` on the host.
+services:
+  triage:
+    build: .
+    ports: ["8000:8000"]
+    volumes:
+      - ./reports:/app/reports
+      - ./artifacts:/app/artifacts

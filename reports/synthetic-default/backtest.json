@@ -1,0 +1,193 @@
+{
+  "run_id": "synthetic-default-20261025T104314Z",
+  "params_note": "champion hyperparameters reused in every fold (not re-tuned)",
+  "folds": [
+    {
+      "cut_day": 75,
+      "test_days": [
+        75,
+        94
+      ],
+      "train_positives": 69,
+      "recall": 0.8658536585365854,
+      "recall_ci": [
+        0.8168925964546403,
+        0.898648080273989
+      ],
+      "fp_reduction": 0.8149815142260086,
+      "n_positives": 164,
+      "n_alerts": 12606
+    },
+    {
+      "cut_day": 95,
+      "test_days": [
+        95,
+        114
+      ],
+      "train_positives": 215,
+      "recall": 0.9196787148594378,
+      "recall_ci": [
+        0.8853713527851459,
+        0.9536679536679536
+      ],
+      "fp_reduction": 0.7901185137732223,
+      "n_positives": 249,
+      "n_alerts": 12737
+    },
+    {
+      "cut_day": 115,
+      "test_days": [
+        115,
+        134
+      ],
+      "train_positives": 389,
+      "recall": 0.9273504273504274,
+      "recall_ci": [
+        0.8955260180995476,
+        0.9548387545434315
+      ],
+      "fp_reduction": 0.7912882745318653,
+      "n_positives": 234,
+      "n_alerts": 12677
+    },
+    {
+      "cut_day": 130,
+      "test_days": [
+        130,
+        149
+      ],
+      "train_positives": 524,
+      "recall": 0.946969696969697,
+      "recall_ci": [
+        0.8984145851469899,
+        0.9774436090225563
+      ],
+      "fp_reduction": 0.7908449575116242,
+      "n_positives": 132,
+      "n_alerts": 12606
+    }
+  ],
+  "families": [
+    {
+      "feature_set": "alert",
+      "mean_recall": 0.8177276020906642,
+      "sd_recall": 0.012495523181707224,
+      "mean_fp_reduction": 0.8002343246522223
+    },
+    {
+      "feature_set": "alert+profiles",
+      "mean_recall": 0.8711182926030119,
+      "sd_recall": 0.010994412116376534,
+      "mean_fp_reduction": 0.7999529831682977,
+      "folds_better_than_previous": "4/4",
+      "mean_gain_vs_previous": 0.05339069051234785
+    },
+    {
+      "feature_set": "alert+profiles+degree",
+      "mean_recall": 0.8858876149318405,
+      "sd_recall": 0.013033082384537816,
+      "mean_fp_reduction": 0.7983679504736588,
+      "folds_better_than_previous": "4/4",
+      "mean_gain_vs_previous": 0.014769322328828632
+    },
+    {
+      "feature_set": "alert+profiles+degree+gw",
+      "mean_recall": 0.9098143240995136,
+      "sd_recall": 0.029148905059528867,
+      "mean_fp_reduction": 0.7950393177152694,
+      "folds_better_than_previous": "3/4",
+      "mean_gain_vs_previous": 0.023926709167673033
+    },
+    {
+      "feature_set": "alert+profiles+degree+gwd",
+      "mean_recall": 0.9131335450392165,
+      "sd_recall": 0.028606322510807098,
+      "mean_fp_reduction": 0.794338598118492,
+      "folds_better_than_previous": "2/4",
+      "mean_gain_vs_previous": 0.0033192209397028827
+    }
+  ],
+  "held_out_typology": [
+    {
+      "typology": "RANDOM",
+      "test_positives": 96,
+      "train_positives_removed": 55,
+      "recall_when_seen": 0.9479166666666666,
+      "recall_when_unseen": 0.9270833333333334
+    },
+    {
+      "typology": "CYCLE",
+      "test_positives": 56,
+      "train_positives_removed": 44,
+      "recall_when_seen": 0.9642857142857143,
+      "recall_when_unseen": 0.9464285714285714
+    },
+    {
+      "typology": "GATHER-SCATTER",
+      "test_positives": 48,
+      "train_positives_removed": 83,
+      "recall_when_seen": 0.9166666666666666,
+      "recall_when_unseen": 0.8958333333333334
+    },
+    {
+      "typology": "BIPARTITE",
+      "test_positives": 40,
+      "train_positives_removed": 41,
+      "recall_when_seen": 0.85,
+      "recall_when_unseen": 0.85
+    },
+    {
+      "typology": "STACK",
+      "test_positives": 37,
+      "train_positives_removed": 65,
+      "recall_when_seen": 0.8648648648648649,
+      "recall_when_unseen": 0.8648648648648649
+    },
+    {
+      "typology": "FAN-IN",
+      "test_positives": 27,
+      "train_positives_removed": 52,
+      "recall_when_seen": 1.0,
+      "recall_when_unseen": 1.0
+    },
+    {
+      "typology": "SCATTER-GATHER",
+      "test_positives": 21,
+      "train_positives_removed": 29,
+      "recall_when_seen": 1.0,
+      "recall_when_unseen": 1.0
+    }
+  ],
+  "seeds": [
+    {
+      "seed": 1,
+      "recall": 0.9270516717325228,
+      "fp_reduction": 0.7835140800145812
+    },
+    {
+      "seed": 2,
+      "recall": 0.9361702127659575,
+      "fp_reduction": 0.7842431422582703
+    },
+    {
+      "seed": 3,
+      "recall": 0.9300911854103343,
+      "fp_reduction": 0.7873416567939489
+    },
+    {
+      "seed": 4,
+      "recall": 0.9209726443768997,
+      "fp_reduction": 0.7906224368905496
+    },
+    {
+      "seed": 5,
+      "recall": 0.9270516717325228,
+      "fp_reduction": 0.7847899389410371
+    }
+  ],
+  "seed_spread": {
+    "min": 0.9209726443768997,
+    "max": 0.9361702127659575,
+    "sd": 0.004938625169991456
+  }
+}
